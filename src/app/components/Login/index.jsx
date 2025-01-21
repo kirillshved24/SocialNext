@@ -1,9 +1,7 @@
-'use client';
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/slices/authSlice';
-import { useRouter } from 'next/navigation'; // Хук для навигации в Next.js
+import { useRouter } from 'next/navigation'; 
 import { Container } from '@/ui/Container';
 import { Input } from '@/ui/Input';
 import { Button } from '@/ui/Button';
@@ -16,7 +14,7 @@ import * as SC from './styles';
 const USERNAME_REGEX = /^[A-Z][a-zA-Z0-9]{2,}$/; // Первая буква заглавная, минимум 3 символа
 const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])/; // Одна заглавная буква и один спецсимвол
 
-export const Login = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -25,15 +23,18 @@ export const Login = () => {
   const onSubmit = (data) => {
     const { username, password } = data;
 
-    const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
-    const user = savedUsers.find((u) => u.username === username && u.password === password);
+    // Используем useEffect для доступа к localStorage
+    useEffect(() => {
+      const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
+      const user = savedUsers.find((u) => u.username === username && u.password === password);
 
-    if (user) {
-      dispatch(login({ username: user.username, email: user.email, id: user.id, isAdmin: user.isAdmin }));
-      router.push('/'); // Используем Next.js для навигации
-    } else {
-      alert('Неправильное имя пользователя или пароль');
-    }
+      if (user) {
+        dispatch(login({ username: user.username, email: user.email, id: user.id, isAdmin: user.isAdmin }));
+        router.push('/'); 
+      } else {
+        alert('Неправильное имя пользователя или пароль');
+      }
+    }, [username, password]);
   };
 
   return (
@@ -77,3 +78,5 @@ export const Login = () => {
     </Container>
   );
 };
+
+export default Login;

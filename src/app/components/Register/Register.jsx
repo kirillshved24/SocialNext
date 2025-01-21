@@ -1,9 +1,7 @@
-'use client'; // Указывает, что компонент является клиентским
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/slices/authSlice';
-import { useRouter } from 'next/navigation'; // Используем useRouter вместо useNavigate
+import { useRouter } from 'next/navigation'; 
 import { Input } from '@/ui/Input';
 import { Button } from '@/ui/Button';
 import { Container } from '@/ui/Container';
@@ -16,24 +14,30 @@ import { useForm } from 'react-hook-form';
 const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])/;
 
-export const Register = () => {
+const Register = () => {
     const dispatch = useDispatch();
     const router = useRouter(); // Получаем объект роутера
     const { get, set } = useLocalStorage();
+    const [newUser, setNewUser] = useState(null); // Состояние для нового пользователя
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         const { username, password, email, isAdmin } = data;
-        const newUser = { id: Date.now(), username, password, email, isAdmin };
-
-        const users = get('users') || [];
-        users.push(newUser);
-        set('users', users);
-
-        dispatch(login({ id: newUser.id, username, email, isAdmin }));
-        router.push('/'); // Заменяем navigate на router.push для перехода на главную страницу
+        const user = { id: Date.now(), username, password, email, isAdmin };
+        setNewUser(user); // Сохраняем нового пользователя в состоянии
     };
+
+    useEffect(() => {
+        if (newUser) { // Проверяем, есть ли новый пользователь
+            const users = get('users') || [];
+            users.push(newUser);
+            set('users', users);
+
+            dispatch(login({ id: newUser.id, username: newUser.username, email: newUser.email, isAdmin: newUser.isAdmin }));
+            router.push('/'); // Переход на главную страницу
+        }
+    }, [newUser, dispatch, router, get, set]);
 
     return (
         <Container>
@@ -95,3 +99,5 @@ export const Register = () => {
         </Container>
     );
 };
+
+export default Register;

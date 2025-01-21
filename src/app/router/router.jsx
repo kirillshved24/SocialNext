@@ -13,7 +13,7 @@ const PostsPage = lazy(() => import('../pages/PostPage/index.jsx').then((module)
 const FriendsPage = lazy(() => import('../pages/FriendsPage/index.jsx').then((module) => ({ default: module.FriendsPage })));
 
 const Router = dynamic(() => import('react-router-dom').then((mod) => mod.createBrowserRouter), {
-  ssr: false, // Отключаем SSR для этого компонента
+  ssr: false, 
 });
 
 const router = Router([

@@ -1,5 +1,6 @@
 'use client'
-import { NavLink } from 'react-router-dom';
+
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export const Menu = styled.div`
@@ -12,7 +13,7 @@ display: flex;
     margin-top:40px;
 `
 
-export const MenuItem = styled(NavLink)`
+export const MenuItem = styled.div`
 font-size:16px;
 text-decoration:none;
 color:black;

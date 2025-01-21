@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { matchRoutes } from 'react-router-dom';
+import { usePathname } from 'next/navigation'; 
 
 export const TitleManager = ({ routes }) => {
-  const location = useLocation();
+  const pathname = usePathname(); 
 
   useEffect(() => {
-    const matchingRoutes = matchRoutes(routes, location.pathname);
-    const title = matchingRoutes?.[0]?.route?.title || 'Социальная сеть';
+  
+    const matchingRoute = routes.find((route) => route.path === pathname);
+    const title = matchingRoute?.title || 'Социальная сеть'; 
     document.title = title;
-  }, [location, routes]);
+  }, [pathname, routes]);
 
   return null;
 };
