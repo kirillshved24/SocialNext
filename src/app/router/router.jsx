@@ -27,6 +27,14 @@ const router = Router([
     title: 'Главная страница',
   },
   {
+path:'/home',
+element:(
+  <Suspense fallback={<Loader />}>
+    <HomePage/>
+  </Suspense>
+)
+  },
+  {
     path: '/login',
     element: (
       <Suspense fallback={<Loader />}>

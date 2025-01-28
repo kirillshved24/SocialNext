@@ -1,18 +1,21 @@
-'use client'
-import React from 'react'; 
-import { useSelector } from 'react-redux'; 
-import { Navigate } from 'react-router-dom'; 
+'use client';
 
-export const ProtectedRoute = ({ children, adminOnly = false }) => { 
-    const { isAuthenticated, isAdmin } = useSelector(state => state.auth); 
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+
+export const ProtectedRoute = ({ children, adminOnly = false }) => {
+    const { isAuthenticated, isAdmin } = useSelector(state => state.auth);
+    const router = useRouter();
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" />; 
+        router.push('/login'); // Перенаправление на страницу входа
+        return null;
     }
 
-    if (adminOnly && !isAdmin) { 
-        return <Navigate to="/" />; 
+    if (adminOnly && !isAdmin) {
+        router.push('/'); // Перенаправление на главную страницу
+        return null;
     }
 
-    return children; 
+    return children;
 };

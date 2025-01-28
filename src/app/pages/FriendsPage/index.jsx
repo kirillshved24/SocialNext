@@ -6,7 +6,7 @@ import { Container } from '@/ui/Container';
 import { Button } from '@/ui/Button';
 import { Title } from '@/ui/Typo';
 import * as SC from './styles';
-import { fetchUsers } from '../../api/friendsApi'; 
+import { fetchUsers } from '@/app/api'; 
 
 export const FriendsPage = () => {
     const [availableFriends, setAvailableFriends] = useState([]);

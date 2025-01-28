@@ -25,15 +25,16 @@ export const AppLayout = ({ children }) => {
       <SC.Menu>
         {currentUser ? (
           <>
-            <SC.MenuItem onClick={() => router.push('/')}>Главная</SC.MenuItem>
-            <SC.MenuItem onClick={() => router.push('/posts')}>Посты</SC.MenuItem>
-            <SC.MenuItem onClick={() => router.push('/friends')}>Друзья</SC.MenuItem>
+            <SC.MenuItem href="/"></SC.MenuItem> 
+            <SC.MenuItem href="/home">Главная</SC.MenuItem> 
+            <SC.MenuItem href="/posts">Посты</SC.MenuItem> 
+            <SC.MenuItem href="/friends">Друзья</SC.MenuItem> 
             <Button onClick={handleLogout}>Выйти</Button>
           </>
         ) : (
           <>
-            <SC.MenuItem onClick={() => router.push('/login')}>Вход</SC.MenuItem>
-            <SC.MenuItem onClick={() => router.push('/register')}>Регистрация</SC.MenuItem>
+            <SC.MenuItem href="/login">Вход</SC.MenuItem> 
+            <SC.MenuItem href="/register">Регистрация</SC.MenuItem> 
           </>
         )}
       </SC.Menu>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/slices/authSlice';
 import { useRouter } from 'next/navigation'; 
@@ -17,25 +17,28 @@ const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])/; // Одна загла
 const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [loginData, setLoginData] = useState(null); // Состояние для данных входа
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    const { username, password } = data;
-
-    // Используем useEffect для доступа к localStorage
-    useEffect(() => {
-      const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
-      const user = savedUsers.find((u) => u.username === username && u.password === password);
-
-      if (user) {
-        dispatch(login({ username: user.username, email: user.email, id: user.id, isAdmin: user.isAdmin }));
-        router.push('/'); 
-      } else {
-        alert('Неправильное имя пользователя или пароль');
-      }
-    }, [username, password]);
+      setLoginData(data); // Сохраняем данные входа
   };
+
+  useEffect(() => {
+      if (loginData) {
+          const { username, password } = loginData;
+          const savedUsers = JSON.parse(localStorage.getItem('users')) || [];
+          const user = savedUsers.find((u) => u.username === username && u.password === password);
+
+          if (user) {
+              dispatch(login({ username: user.username, email: user.email, id: user.id, isAdmin: user.isAdmin }));
+              router.push('/');
+          } else {
+              alert('Неправильное имя пользователя или пароль');
+          }
+      }
+  }, [loginData, dispatch, router]);
 
   return (
     <Container>

@@ -13,7 +13,7 @@ display: flex;
     margin-top:40px;
 `
 
-export const MenuItem = styled.div`
+export const MenuItem = styled(Link)`
 font-size:16px;
 text-decoration:none;
 color:black;
