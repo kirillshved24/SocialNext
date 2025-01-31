@@ -1,24 +1,27 @@
+import { NextResponse } from 'next/server';
 import User from '@/models/User';
-import connectDB from '@/lib/db'; // Импортируем connectDB
+import connectDB from '@/lib/db';
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: `Метод ${req.method} не поддерживается` });
-  }
-
+export async function POST(req) {
   try {
-    // Подключаемся к базе данных
     await connectDB();
+    const { username, password, email } = await req.json();
 
-    const { username, password, email, isAdmin } = req.body;
     if (!username || !password || !email) {
-      return res.status(400).json({ error: 'Все поля обязательны' });
+      return NextResponse.json({ error: 'Все поля обязательны' }, { status: 400 });
     }
 
-    const newUser = new User({ username, password, email, isAdmin });
+    // Проверка, существует ли пользователь с таким email
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return NextResponse.json({ error: 'Email уже используется' }, { status: 409 });
+    }
+
+    const newUser = new User({ username, password, email });
     await newUser.save();
-    res.status(201).json(newUser);
+
+    return NextResponse.json({ message: 'Пользователь зарегистрирован' }, { status: 201 });
   } catch (error) {
-    res.status(500).json({ error: 'Ошибка при регистрации', details: error.message });
+    return NextResponse.json({ error: 'Ошибка при регистрации', details: error.message }, { status: 500 });
   }
 }

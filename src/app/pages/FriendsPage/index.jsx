@@ -33,7 +33,7 @@ export const FriendsPage = () => {
             console.log('Загружаем друзей для пользователя:', currentUser.id);
             dispatch(fetchFriends(currentUser.id)); 
         }
-    }, [currentUser, dispatch, friends]);
+    }, [ dispatch]);
 
     const handleAddFriend = (friendId) => {
         if (currentUser) {
