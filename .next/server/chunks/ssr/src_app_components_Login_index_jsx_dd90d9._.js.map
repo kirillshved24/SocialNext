@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://D%3A/progectnext/my-app/src/app/components/Login/index.jsx/proxy.mjs"],"sourcesContent":["import { registerClientReference } from \"react-server-dom-turbopack/server.edge\";\nexport const Login = registerClientReference(\n    function() { throw new Error(\"Attempted to call Login() from the server but Login is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.\"); },\n    \"[project]/src/app/components/Login/index.jsx <module evaluation>\",\n    \"Login\",\n);\n"],"names":[],"mappings":";;;AAAA;;AACO,MAAM,QAAQ,CAAA,GAAA,qPAAA,CAAA,0BAAuB,AAAD,EACvC;IAAa,MAAM,IAAI,MAAM;AAA0N,GACvP,oEACA"}},
+    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 21, "column": 0}, "map": {"version":3,"sources":["file://D%3A/progectnext/my-app/src/app/components/Login/index.jsx/proxy.mjs"],"sourcesContent":["import { registerClientReference } from \"react-server-dom-turbopack/server.edge\";\nexport const Login = registerClientReference(\n    function() { throw new Error(\"Attempted to call Login() from the server but Login is on the client. It's not possible to invoke a client function from the server, it can only be rendered as a Component or passed to props of a Client Component.\"); },\n    \"[project]/src/app/components/Login/index.jsx\",\n    \"Login\",\n);\n"],"names":[],"mappings":";;;AAAA;;AACO,MAAM,QAAQ,CAAA,GAAA,qPAAA,CAAA,0BAAuB,AAAD,EACvC;IAAa,MAAM,IAAI,MAAM;AAA0N,GACvP,gDACA"}},
+    {"offset": {"line": 29, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 35, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":""}},
+    {"offset": {"line": 39, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

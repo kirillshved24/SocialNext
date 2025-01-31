@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://D%3A/SocialNext/my-app/src/app/home/page.tsx"],"sourcesContent":["'use client';\r\n\r\nimport {HomePage} from '@/app/pages/HomePage/index';\r\n\r\nexport default function HomeSocialPage() {\r\n  return <HomePage />;\r\n}\r\n"],"names":[],"mappings":";;;;;;;;;AAAA;;;AAIe,SAAS;IACtB,qBAAO,6LAAC;;;;;AACV;KAFwB"}},
+    {"offset": {"line": 32, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
