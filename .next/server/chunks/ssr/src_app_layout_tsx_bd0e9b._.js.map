@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://D%3A/progectnext/my-app/src/app/layout.tsx"],"sourcesContent":["// app/layout.js или другой основной компонент\n\nimport React from 'react';\nimport { Provider } from 'react-redux';\nimport { store } from './redux/store';\nimport { RouterProvider } from 'react-router-dom'; // или next/router, если это Next.js\n\nimport router from './router'; // Обновите путь, если он отличается\n\nfunction RootLayout({ children }) {\n  return (\n    <html lang=\"en\">\n      <body>\n        <Provider store={store}>\n          <RouterProvider router={router} /> {/* или используйте useRouter в Next.js */}\n          {children}\n        </Provider>\n      </body>\n    </html>\n  );\n}\n\nexport default RootLayout;\n"],"names":[],"mappings":"AAAA,8CAA8C;;;;;;;;;;;;;;;AAG9C;AAEA,oQAAmD,oCAAoC;;;;;;AAIvF,SAAS,WAAW,EAAE,QAAQ,EAAE;IAC9B,qBACE,8OAAC;QAAK,MAAK;kBACT,cAAA,8OAAC;sBACC,cAAA,8OAAC,8IAAA,CAAA,WAAQ;gBAAC,OAAO;;kCACf,8OAAC,uJAAA,CAAA,iBAAc;wBAAC,QAAQ;;;;;;oBAAU;oBACjC;;;;;;;;;;;;;;;;;AAKX;uCAEe"}},
+    {"offset": {"line": 63, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
