@@ -6,7 +6,7 @@ const initialState = {
     isAdmin: false,
     isAuthenticated: false,
     friends: [],
-    status: 'idle', // idle, loading, succeeded, failed
+    status: 'idle', 
     error: null,
 };
 
@@ -18,11 +18,11 @@ export const loginUser = createAsyncThunk(
             const response = await axios.post('/api/auth/login', { username, password });
             const { token } = response.data;
 
-            console.log('Токен после логина:', token); // <-- добавили лог
-
+            console.log('Токен после логина:', token);
             localStorage.setItem('token', token);
 
             const userData = JSON.parse(atob(token.split('.')[1]));
+
             return { ...userData, token };
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
@@ -52,23 +52,27 @@ export const fetchFriends = createAsyncThunk(
     'auth/fetchFriends',
     async (userId, { rejectWithValue }) => {
         try {
-            const response = await axios.get('/api/friends', { params: { userId } });
+            const token = localStorage.getItem('token');
+            if (!token) throw new Error('Нет доступа: пользователь не авторизован');
+
+            const response = await axios.get('/api/friends', {
+                params: { userId },
+                headers: { Authorization: `Bearer ${token}` } // 👈 Добавляем токен
+            });
+
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
     }
 );
-
 // Добавление друга
 export const addFriendToServer = createAsyncThunk(
     'auth/addFriendToServer',
     async ({ friendId }, { rejectWithValue }) => {
         try {
-            const token = localStorage.getItem('token'); // Получаем токен
-            console.log('Токен перед отправкой запроса:', token); // <-- добавили лог
-
-            if (!token) throw new Error('Токен не найден');
+            const token = localStorage.getItem('token');
+            if (!token) throw new Error('Нет доступа: пользователь не авторизован');
 
             const response = await axios.post(
                 '/api/friends',
@@ -88,15 +92,20 @@ export const removeFriendFromServer = createAsyncThunk(
     'auth/removeFriendFromServer',
     async ({ userId, friendId }, { rejectWithValue }) => {
         try {
-            await axios.delete('/api/friends', { data: { userId, friendId } });
+            const token = localStorage.getItem('token');
+            if (!token) throw new Error('Нет доступа: пользователь не авторизован');
+
+            await axios.delete('/api/friends', {
+                data: { userId, friendId },
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
             return { userId, friendId };
         } catch (error) {
             return rejectWithValue(error.response?.data || error.message);
         }
     }
 );
-
-
 export const authSlice = createSlice({
     name: 'auth',
     initialState,

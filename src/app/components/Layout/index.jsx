@@ -30,7 +30,7 @@ export const AppLayout = ({ children }) => {
             <SC.MenuItem href="/home">Главная</SC.MenuItem>
             <SC.MenuItem href="/posts">Посты</SC.MenuItem>
             <SC.MenuItem href="/friends">Друзья</SC.MenuItem>
-            <Button onClick={handleLogout}>Выйти</Button>
+            <Button onClick={handleLogout}>Выйти</Button> 
           </>
         ) : (
           <>
